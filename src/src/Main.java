@@ -79,7 +79,7 @@ public class Main {
         vivos.agregar(n1,n1.cotainf);
         cota=n1.cotaSup;
         mejorSolucion=null;
-        while(vivos!=0){
+        while(vivos!= 0){
             nodo=primero(vivos);
             vivos.sacar(nodo);
             hijos=generarHijos(nodo,c,CFP);
