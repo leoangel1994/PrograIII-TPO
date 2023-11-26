@@ -28,7 +28,32 @@ public class Main {
         }
         return new int[]{cl, cd};
     }
-
+    public static minim (CFP[],int C[]){
+        n1=CrearNodoRaiz(c,CFP);
+        vivos=CrearColaPrioridad();
+        vivos.agregar(n1,n1.cotainf);
+        cota=n1.cotaSup;
+        mejorSolucion=null;
+        while(vivos!=0){
+            nodo=primero(vivos);
+            vivos.sacar(nodo);
+            hijos=generarHijos(nodo,c,CFP);
+            for(int h =0;h<hijos;h++){
+                if(NoPodar(h,cota)){
+                    if(esSolucion(h)){
+                        if(esMejorSolucion(h,mejorSolucion)){
+                            mejorSolucion=h;
+                            cota=actualizar(cota,h);
+                    }else{
+                        vivo.agregar(h,h.cotainf);
+                        cota=actualizar(cota,h);
+                    }
+                    }
+                }
+            }
+        }
+        return mejorSolucion.estado;
+    }
     public static void main(String[] args) {
         int[] resultados = leerLineas();
         int cl = resultados[0];
