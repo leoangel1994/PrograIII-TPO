@@ -2,33 +2,78 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import implementaciones.GrafoLA;
+//import implementaciones.GrafoLA;
 
 public class Main {
-     public static int[] leerLineas() {
+    static class Resultado {
+        int cl;
+        int cd;
+        int[] vpa;
+        int[] CDP;
+        int[] CFP;
+
+        Resultado(int cl, int cd, int[] vpa, int[] CDP, int[] CFP) {
+            this.cl = cl;
+            this.cd = cd;
+            this.vpa = vpa;
+            this.CDP = CDP;
+            this.CFP = CFP;
+        }
+    }
+      public static Resultado leerLineas() {
         int cl = 0;
         int cd = 0;
+        int[] vpa = new int[50];
+        int[] CDP = new int[8];
+        int[] CFP = new int[8];
         try {
             BufferedReader reader = new BufferedReader(new FileReader("clientesycentros.txt"));
             String line = reader.readLine();
-            if (line.contains("#")) {
+            if (line != null && line.contains("#")) {
                 line = line.substring(0, line.indexOf("#")).trim();
             }
             cl = Integer.parseInt(line);
             line = reader.readLine();
-            if (line.contains("#")) {
+            if (line != null && line.contains("#")) {
                 line = line.substring(0, line.indexOf("#")).trim();
             }
             cd = Integer.parseInt(line);
-            System.out.println("cl: " + cl);
-            System.out.println("cd: " + cd);
+             // Leer las líneas 3 a 10
+
+             for (int i = 0; i < 8; i++) {
+                line = reader.readLine();
+                if (line != null) {
+                    if (line.contains("#")) {
+                        line = line.substring(0, line.indexOf("#")).trim();
+                    }
+                    String[] parts = line.split(",");
+                    if (parts.length >= 3) {
+                        int position = Integer.parseInt(parts[0]);
+                        CDP[position] = Integer.parseInt(parts[1]);
+                        CFP[position] = Integer.parseInt(parts[2]);
+                    }
+                }
+            }
+            // Leer las líneas 11 a 60
+            for (int i = 0; i < 50; i++) {
+                line = reader.readLine();
+                if (line != null) {
+                    if (line.contains("#")) {
+                        line = line.substring(0, line.indexOf("#")).trim();
+                    }
+                    String[] parts = line.split(",");
+                    int position = Integer.parseInt(parts[0]);
+                    int value = Integer.parseInt(parts[1]);
+                    vpa[position] = value;
+                }
+            }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new int[]{cl, cd};
+        return new Resultado(cl, cd, vpa, CDP, CFP);
     }
-    public static minim (CFP[],int C[]){
+    /* public static minim (CFP[],int C[]){
         n1=CrearNodoRaiz(c,CFP);
         vivos=CrearColaPrioridad();
         vivos.agregar(n1,n1.cotainf);
@@ -53,22 +98,31 @@ public class Main {
             }
         }
         return mejorSolucion.estado;
-    }
+    } */
     public static void main(String[] args) {
-        int[] resultados = leerLineas();
-        int cl = resultados[0];
-        int cd = resultados[1];
-        int[] Vpa = new int[100];
-        int[] CDP = new int[100];
-        int[] CFP = new int[100];
+        Resultado resultado = leerLineas();
+        int cl = resultado.cl;
+        int cd = resultado.cd;
+        int[] vpa = resultado.vpa;
+        int[] CDP = resultado.CDP;
+        int[] CFP = resultado.CFP;
         int[][] D = new int[cd][cl];
 
         System.out.println("Resultado: cl = " + cl + ", cd = " + cd);
+        for (int i = 0; i < vpa.length; i++) {
+            System.out.println("Posición: " + i + ", Valor: " + vpa[i]);
+        }
+        for (int i = 0; i < CDP.length; i++) {
+            System.out.println("CDP Posición: " + i + ", Valor: " + CDP[i]);
+        }
+        for (int i = 0; i < CFP.length; i++) {
+            System.out.println("CFP Posición: " + i + ", Valor: " + CFP[i]);
+        }
 
         for(int i=0; i<cl;i++){
             //R=Dijkstra(G,i);
             for(int j=0; j<cd;j++){
-                D[j][i]=(D[j][i]*Vpa[i])+(CDP[j]*Vpa[i]);
+                D[j][i]=(D[j][i]*vpa[i])+(CDP[j]*vpa[i]);
             }
 
         }
