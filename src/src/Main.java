@@ -4,8 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import Estructuras.Nodo;
 import Interfaces.ConjuntoTDA;
 import implementaciones.GrafoLA;
+
+import Estructuras.NodoBB;
+import Estructuras.NodoPrioridad;
+import implementaciones.GrafoLA;
+import java.util.PriorityQueue;
 
 
 
@@ -136,6 +142,32 @@ public class Main{
             e.printStackTrace();
         }
         return new Resultado(cl, cd, vpa, CDP, CFP);
+    }
+
+        public static Nodo minim(int[] CFP, int[] c) {
+        Nodo n1 = CrearNodoRaiz(c, CFP);
+        vivos.add(n1);
+        int cota = n1.cotaSup;
+        Nodo mejorSolucion = null;
+        while (!vivos.isEmpty()) {
+            Nodo nodo = primero(vivos);
+            vivos.remove(nodo);
+            Nodo[] hijos = generarHijos(nodo, c, CFP);
+            for (Nodo h : hijos) {
+                if (NoPodar(h, cota)) {
+                    if (esSolucion(h)) {
+                        if (esMejorSolucion(h, mejorSolucion)) {
+                            mejorSolucion = h;
+                            cota = actualizar(cota, h);
+                        } else {
+                            vivos.add(h);
+                            cota = actualizar(cota, h);
+                        }
+                    }
+                }
+            }
+        }
+        return mejorSolucion;
     }
     
     /* public static minim (CFP[],int C[]){
