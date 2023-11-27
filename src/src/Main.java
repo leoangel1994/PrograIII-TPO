@@ -2,28 +2,19 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.HashSet;
 
-import implementaciones.GrafoMA;
-
+import Interfaces.ConjuntoTDA;
+import implementaciones.GrafoLA;
 
 
-public class Main {
 
-    static class Nodo {
-        int destino;
-        int peso;
+public class Main{
 
-        Nodo(int destino, int peso) {
-            this.destino = destino;
-            this.peso = peso;
-        }
-    }
-
-    static GrafoMA leerRutas() {
-        GrafoMA grafo = new GrafoMA();
+    static GrafoLA leerRutas() {
+        GrafoLA grafoD = new GrafoLA();
+        HashSet<Integer> nodos = new HashSet<>();
+        ArrayList<int[]> aristas = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader("rutas.txt"));
             // Saltar la primera línea
@@ -40,33 +31,41 @@ public class Main {
                         int origen = Integer.parseInt(parts[0]);
                         int destino = Integer.parseInt(parts[1]);
                         int peso = Integer.parseInt(parts[2]);
-                        grafo.agregarArista(origen, destino, peso);
+                        nodos.add(origen);
+                        nodos.add(destino);
+                        aristas.add(new int[]{origen, destino, peso});
                     }
                 }
             }
             reader.close();
+            for (int nodo : nodos) {
+                grafoD.agregarVertice(nodo);
+            }
+            for (int[] arista : aristas) {
+                grafoD.agregarArista(arista[0], arista[1], arista[2]);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return grafo;
+        return grafoD;
     }
-
-    class Grafoma {
-        private final Map<Integer, List<Nodo>> adyacencias = new HashMap<>();
-
-        void agregarArista(int origen, int destino, int peso) {
-            this.adyacencias.computeIfAbsent(origen, k -> new ArrayList<>()).add(new Nodo(destino, peso));
-        }
-
-        void imprimir() {
-            for (Map.Entry<Integer, List<Nodo>> entry : adyacencias.entrySet()) {
-                for (Nodo nodo : entry.getValue()) {
-                    System.out.println("Origen: " + entry.getKey() + ", Destino: " + nodo.destino + ", Peso: " + nodo.peso);
+    static void imprimir(GrafoLA grafo) {
+        ConjuntoTDA vertices = grafo.vertices();
+        while (!vertices.conjuntoVacio()) {
+            int vo = vertices.elegir();
+            vertices.sacar(vo);
+            ConjuntoTDA otrosVertices = grafo.vertices();
+            while (!otrosVertices.conjuntoVacio()) {
+                int vd = otrosVertices.elegir();
+                otrosVertices.sacar(vd);
+                if (grafo.existeArista(vo, vd)) {
+                    int peso = grafo.pesoArista(vo, vd);
+                    System.out.println("Origen: " + vo + ", Destino: " + vd + ", Peso: " + peso);
                 }
             }
         }
+    
     }
-
     //-----------------------------------------------------------------------
     
     static class Resultado {
@@ -166,11 +165,11 @@ public class Main {
         return mejorSolucion.estado;
     } */
     
-    //-----------------------------------------------------------------------
+    
     public static void main(String[] args) {
         Resultado resultado = leerLineas();
-        GrafoMA grafo = leerRutas();
-        grafo.imprimir();
+        GrafoLA grafoD = leerRutas();
+        imprimir(grafoD);
         
         int cl = resultado.cl;
         int cd = resultado.cd;
