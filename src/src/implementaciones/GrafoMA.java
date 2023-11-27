@@ -3,7 +3,7 @@ package implementaciones;
 import Interfaces.ConjuntoTDA;
 import Interfaces.GrafoTDA;
 
-public class GrafoMA implements GrafoTDA{
+public class GrafoMA implements GrafoTDA{ // Grafo con Matriz de Adyacencia
 	
 	int[][] mAdy;
 	int[] etiquetas;
