@@ -193,9 +193,9 @@ public class Main{
         
 
         for(int i=0; i<cl;i++){
-            //R=Dijkstra(G,i);
+            R=Dijkstra(G,i);
             for(int j=0; j<cd;j++){
-                D[j][i]=(D[j][i]*vpa[i])+(CDP[j]*vpa[i]);
+                D[j][i]=R.pesoArista(i+50,j);
             }
 
         }
