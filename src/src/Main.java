@@ -1,10 +1,74 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-//import implementaciones.GrafoLA;
+import implementaciones.GrafoMA;
+
+
 
 public class Main {
+
+    static class Nodo {
+        int destino;
+        int peso;
+
+        Nodo(int destino, int peso) {
+            this.destino = destino;
+            this.peso = peso;
+        }
+    }
+
+    static GrafoMA leerRutas() {
+        GrafoMA grafo = new GrafoMA();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("rutas.txt"));
+            // Saltar la primera línea
+            reader.readLine();
+            // Leer las líneas 2 a 157
+            for (int i = 0; i < 156; i++) {
+                String line = reader.readLine();
+                if (line != null) {
+                    if (line.contains("#")) {
+                        line = line.substring(0, line.indexOf("#")).trim();
+                    }
+                    String[] parts = line.split(",");
+                    if (parts.length >= 3) {
+                        int origen = Integer.parseInt(parts[0]);
+                        int destino = Integer.parseInt(parts[1]);
+                        int peso = Integer.parseInt(parts[2]);
+                        grafo.agregarArista(origen, destino, peso);
+                    }
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return grafo;
+    }
+
+    class Grafoma {
+        private final Map<Integer, List<Nodo>> adyacencias = new HashMap<>();
+
+        void agregarArista(int origen, int destino, int peso) {
+            this.adyacencias.computeIfAbsent(origen, k -> new ArrayList<>()).add(new Nodo(destino, peso));
+        }
+
+        void imprimir() {
+            for (Map.Entry<Integer, List<Nodo>> entry : adyacencias.entrySet()) {
+                for (Nodo nodo : entry.getValue()) {
+                    System.out.println("Origen: " + entry.getKey() + ", Destino: " + nodo.destino + ", Peso: " + nodo.peso);
+                }
+            }
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    
     static class Resultado {
         int cl;
         int cd;
@@ -20,7 +84,8 @@ public class Main {
             this.CFP = CFP;
         }
     }
-      public static Resultado leerLineas() {
+    
+    public static Resultado leerLineas() {
         int cl = 0;
         int cd = 0;
         int[] vpa = new int[50];
@@ -73,6 +138,7 @@ public class Main {
         }
         return new Resultado(cl, cd, vpa, CDP, CFP);
     }
+    
     /* public static minim (CFP[],int C[]){
         n1=CrearNodoRaiz(c,CFP);
         vivos=CrearColaPrioridad();
@@ -99,15 +165,20 @@ public class Main {
         }
         return mejorSolucion.estado;
     } */
+    
+    //-----------------------------------------------------------------------
     public static void main(String[] args) {
         Resultado resultado = leerLineas();
+        GrafoMA grafo = leerRutas();
+        grafo.imprimir();
+        
         int cl = resultado.cl;
         int cd = resultado.cd;
         int[] vpa = resultado.vpa;
         int[] CDP = resultado.CDP;
         int[] CFP = resultado.CFP;
         int[][] D = new int[cd][cl];
-
+        
         System.out.println("Resultado: cl = " + cl + ", cd = " + cd);
         for (int i = 0; i < vpa.length; i++) {
             System.out.println("Posición: " + i + ", Valor: " + vpa[i]);
@@ -118,6 +189,9 @@ public class Main {
         for (int i = 0; i < CFP.length; i++) {
             System.out.println("CFP Posición: " + i + ", Valor: " + CFP[i]);
         }
+        
+
+        
 
         for(int i=0; i<cl;i++){
             //R=Dijkstra(G,i);
