@@ -5,7 +5,7 @@ import Estructuras.NodoGrafo;
 import Interfaces.ConjuntoTDA;
 import Interfaces.GrafoTDA;
 
-public class GrafoLA implements GrafoTDA{ // Grafo con Lista de Adyacencia
+public class GrafoLA implements GrafoTDA{
 
 	NodoGrafo origen;
 	

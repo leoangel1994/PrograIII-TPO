@@ -1,0 +1,31 @@
+
+l
+java:S1192q"JDefine a constant instead of duplicating this literal ", Valor: " 3 times.(Î‡Øıÿÿÿÿ8¿‹´îÀ1
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñ¢ç°ûÿÿÿÿ8Á‹´îÀ1
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñ¢ç°ûÿÿÿÿ8Á‹´îÀ1
+m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×ÍÉê8Â‹´îÀ1
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıØ°]8Â‹´îÀ1
+r	java:S117k"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸÛ¶Ùûÿÿÿÿ8Â‹´îÀ1
+r	java:S117l"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬Ìù¤ÿÿÿÿÿ8Â‹´îÀ1
+m	java:S117m"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰ê8Â‹´îÀ1
+n	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡±¹ñ8Â‹´îÀ1
+s	java:S117„"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù™ÊÌûÿÿÿÿ8Â‹´îÀ1
+n	java:S117‡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µş¨Û8Ã‹´îÀ1
+0
+java:S1220""Move this file to a named package.
+h
+java:S2095"LUse try-with-resources or close this "BufferedReader" in a "finally" clause.(©œ»8Â‘´îÀ1
+X	java:S125"<This block of commented-out lines of code should be removed.(Ìğÿ‚8â‘´îÀ1
+o	java:S116"NRename this field "CDP" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äˆúâøÿÿÿÿ8â‘´îÀ1
+j	java:S116"NRename this field "CFP" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åºÁ8â‘´îÀ1
+t
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(¡áó ıÿÿÿÿ8’´îÀ1
+o
+java:S3776f"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(Çµí‘8Ã“´îÀ1
+X	java:S125L"<This block of commented-out lines of code should be removed.(¤Éä‚8Å“´îÀ1
+L	java:S106o"+Replace this use of System.out by a logger.(ß…÷¼ùÿÿÿÿ8â“´îÀ1
+L	java:S106q"+Replace this use of System.out by a logger.(Î‡Øıÿÿÿÿ8ä“´îÀ1
+L	java:S106t"+Replace this use of System.out by a logger.(Óè»“øÿÿÿÿ8å“´îÀ1
+G	java:S106w"+Replace this use of System.out by a logger.(ÁËÜ®8æ“´îÀ1
+X	java:S125{"<This block of commented-out lines of code should be removed.(êî€‘8æ“´îÀ1
+^	java:S125‚"<This block of commented-out lines of code should be removed.(µ²ÃÁúÿÿÿÿ8ç“´îÀ1

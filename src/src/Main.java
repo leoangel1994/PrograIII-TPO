@@ -1,10 +1,73 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 
-//import implementaciones.GrafoLA;
+import Interfaces.ConjuntoTDA;
+import implementaciones.GrafoLA;
 
-public class Main {
+
+
+public class Main{
+
+    static GrafoLA leerRutas() {
+        GrafoLA grafoD = new GrafoLA();
+        HashSet<Integer> nodos = new HashSet<>();
+        ArrayList<int[]> aristas = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("rutas.txt"));
+            // Saltar la primera línea
+            reader.readLine();
+            // Leer las líneas 2 a 157
+            for (int i = 0; i < 156; i++) {
+                String line = reader.readLine();
+                if (line != null) {
+                    if (line.contains("#")) {
+                        line = line.substring(0, line.indexOf("#")).trim();
+                    }
+                    String[] parts = line.split(",");
+                    if (parts.length >= 3) {
+                        int origen = Integer.parseInt(parts[0]);
+                        int destino = Integer.parseInt(parts[1]);
+                        int peso = Integer.parseInt(parts[2]);
+                        nodos.add(origen);
+                        nodos.add(destino);
+                        aristas.add(new int[]{origen, destino, peso});
+                    }
+                }
+            }
+            reader.close();
+            for (int nodo : nodos) {
+                grafoD.agregarVertice(nodo);
+            }
+            for (int[] arista : aristas) {
+                grafoD.agregarArista(arista[0], arista[1], arista[2]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return grafoD;
+    }
+    static void imprimir(GrafoLA grafo) {
+        ConjuntoTDA vertices = grafo.vertices();
+        while (!vertices.conjuntoVacio()) {
+            int vo = vertices.elegir();
+            vertices.sacar(vo);
+            ConjuntoTDA otrosVertices = grafo.vertices();
+            while (!otrosVertices.conjuntoVacio()) {
+                int vd = otrosVertices.elegir();
+                otrosVertices.sacar(vd);
+                if (grafo.existeArista(vo, vd)) {
+                    int peso = grafo.pesoArista(vo, vd);
+                    System.out.println("Origen: " + vo + ", Destino: " + vd + ", Peso: " + peso);
+                }
+            }
+        }
+    
+    }
+    //-----------------------------------------------------------------------
+    
     static class Resultado {
         int cl;
         int cd;
@@ -74,6 +137,7 @@ public class Main {
         }
         return new Resultado(cl, cd, vpa, CDP, CFP);
     }
+    
     /* public static minim (CFP[],int C[]){
         n1=CrearNodoRaiz(c,CFP);
         vivos=CrearColaPrioridad();
@@ -100,6 +164,8 @@ public class Main {
         }
         return mejorSolucion.estado;
     } */
+    
+    
     public static void main(String[] args) {
         Resultado resultado = leerLineas();
         GrafoLA grafoD = leerRutas();
